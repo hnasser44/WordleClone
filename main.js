@@ -12974,7 +12974,8 @@ const dictionary = [
   "rural",
   "shave",
 ]
-let targetWords = [
+
+const targetWords = [
   "cigar",
   "rebut",
   "sissy",
