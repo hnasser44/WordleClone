@@ -1,0 +1,262 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --hue: 200;
+  --saturation: 1%;
+  --lightness: 51%;
+  --lightness-offset: 0%;
+  --color-present: #b59f3b;
+  --color-correct: #538d4e;
+  --color-absent: #3a3a3c;
+
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  background-color: black;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  margin-top: 2rem;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.25em));
+  grid-auto-rows: 3em;
+  gap: .25em;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.key {
+  font-size: inherit;
+  grid-column: span 2;
+  border: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(
+    var(--hue, 200),
+    var(--saturation, 1%),
+    calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
+  );
+  color: white;
+  fill: white;
+  text-transform: uppercase;
+  border-radius: .25em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.key.large {
+  grid-column: span 3;
+}
+
+.key > svg {
+  width: 1.75em;
+  height: 1.75em;
+}
+
+.key[data-correct] {
+  background-color: var(--color-correct);
+}
+
+.key[data-present] {
+  background-color: var(--color-present);
+}
+
+.key[data-absent] {
+  background-color: var(--color-absent);
+}
+
+.key[data-correct]:hover,
+.key[data-present]:hover,
+.key[data-absent]:hover {
+  cursor: default;
+}
+
+.game-container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: .25em;
+  margin-bottom: 1em;
+  margin-top: 2rem;
+}
+
+.tile {
+  font-size: 2em;
+  color: white;
+  border: .05em solid hsl(240, 2%, 23%);
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: transform 250ms linear;
+}
+
+
+.tile[data-correct]
+{
+  background-color: var(--color-correct);
+}
+
+.tile[data-present]
+{
+  background-color: var(--color-present);
+}
+
+.tile[data-wrong]
+{
+  background-color: var(--color-absent);
+}
+
+.tile.flip
+{
+  transform: rotateX(90deg);
+}
+
+@keyframes dance {
+  20% {
+    transform: translateY(-50%);
+  }  
+
+  40% {
+    transform: translateY(5%);
+  }  
+
+  60% {
+    transform: translateY(-25%);
+  }  
+
+  80% {
+    transform: translateY(2.5%);
+  }  
+
+  90% {
+    transform: translateY(-5%);
+  }  
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
+@media all and (max-width: 400px)
+{
+  .game-container {
+    grid-template-columns: repeat(5, 3em);
+    grid-template-rows: repeat(6, 3em);
+    margin-top: 0rem;
+  }
+
+ 
+  .tile {
+    font-size: 1.5em;
+  }
+}
+
+
+.alert-container {
+  position: fixed;
+  top: 20vh;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.alert-container .alert {
+  background-color: white;
+  color: black;
+  padding: .8rem;
+  border-radius: .25em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+
+.alert-container .alert.hide {
+  opacity: 0;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  10% {
+    transform: translateX(-5%);
+  }
+
+  20% {
+    transform: translateX(5%);
+  }
+
+  30% {
+    transform: translateX(-5%);
+  }
+
+  40% {
+    transform: translateX(5%);
+  }
+
+  50% {
+    transform: translateX(-5%);
+  }
+
+  60% {
+    transform: translateX(5%);
+  }
+
+  70% {
+    transform: translateX(-5%);
+  }
+
+  80% {
+    transform: translateX(5%);
+  }
+
+  90% {
+    transform: translateX(-5%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.tile.shake {
+  animation: shake 500ms ease-in-out;
+}
